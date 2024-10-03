@@ -25,11 +25,11 @@
         }
         .chat-messages {
             flex-grow: 1;
-        padding: 20px;
-        overflow-y: auto;
-        background-image: url('https://w0.peakpx.com/wallpaper/508/606/HD-wallpaper-whatsapp-l-background-doodle-pattern-patterns.jpg'); 
-        background-size: cover;
-        background-position: center;    
+            padding: 20px;
+            overflow-y: auto;
+            background-image: url('https://w0.peakpx.com/wallpaper/508/606/HD-wallpaper-whatsapp-l-background-doodle-pattern-patterns.jpg'); 
+            background-size: cover;
+            background-position: center;    
         }
         .message {
             max-width: 65%;
@@ -81,14 +81,40 @@
             cursor: pointer;
             margin-left: 10px;
         }
+        .input-area-2 {
+            display: flex;
+            padding: 10px;
+            background-color: #f0f2f5;
+        }
+        #message-input-2 {
+            flex-grow: 1;
+            padding: 9px 12px 11px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            font-size: 15px;
+        }
+        #send-button-2 {
+            background-color: #00a884;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="chat-container">
         <div class="chat-messages" id="chat-messages"></div>
         <div class="input-area">
-            <input type="text" id="message-input" placeholder="Mesaj yazın">
+            <input type="text" id="message-input" placeholder="1. Kişi mesaj yazın">
             <button id="send-button">Gönder</button>
+        </div>
+        <div class="input-area-2">
+            <input type="text" id="message-input-2" placeholder="2. Kişi mesaj yazın">
+            <button id="send-button-2">Gönder</button>
         </div>
     </div>
 
@@ -96,6 +122,8 @@
         const chatMessages = document.getElementById('chat-messages');
         const messageInput = document.getElementById('message-input');
         const sendButton = document.getElementById('send-button');
+        const messageInput2 = document.getElementById('message-input-2');
+        const sendButton2 = document.getElementById('send-button-2');
         let isUserTurn = true;
 
         function getCurrentTime() {
@@ -116,9 +144,16 @@
         function sendMessage() {
             const message = messageInput.value.trim();
             if (message) {
-                addMessage(message, isUserTurn);
+                addMessage(message, true);
                 messageInput.value = '';
-                isUserTurn = !isUserTurn;
+            }
+        }
+
+        function sendMessage2() {
+            const message = messageInput2.value.trim();
+            if (message) {
+                addMessage(message, false);
+                messageInput2.value = '';
             }
         }
 
@@ -128,13 +163,13 @@
                 sendMessage();
             }
         });
+
+        sendButton2.addEventListener('click', sendMessage2);
+        messageInput2.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage2();
+            }
+        });
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
